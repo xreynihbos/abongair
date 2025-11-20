@@ -1,19 +1,9 @@
-import os
-from openai import OpenAI
-
-client = OpenAI(
-    base_url="https://router.huggingface.co/v1",
-    api_key=os.environ["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"],
-)
-
-completion = client.chat.completions.create(
-    model="meta-llama/Llama-3.2-3B-Instruct:novita",
-    messages=[
-        {
-            "role": "user",
-            "content": "What is the capital of France?"
-        }
-    ],
-)
-
-print(completion.choices[0].message)
+async function sendMessage(message) {
+  const res = await fetch("https://ai-chat-worker.csrynaldifusototo.workers.dev/", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ messages: [{ role: "user", content: message }] }),
+  });
+  const data = await res.json();
+  return data.choices[0].message.content;
+}
